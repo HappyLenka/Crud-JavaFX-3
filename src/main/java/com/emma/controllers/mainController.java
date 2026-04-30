@@ -54,6 +54,7 @@ public class mainController {
 
         if (source.toString().contains("Insertar")) {
             insertBook();
+            loadBooks();
         } else if (source.toString().contains("Actualizar")) {
             // updateBook();
         } else if (source.toString().contains("Eliminar")) {
@@ -67,7 +68,7 @@ public class mainController {
 
     @FXML
     private void initialize() {
-        //Digamos que es un constructor
+        // Digamos que es un constructor
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -80,7 +81,7 @@ public class mainController {
 
     private void insertBook() throws Exception {
         Book book = new Book(
-                //Integer.parseInt(tfId.getText()),
+                // Integer.parseInt(tfId.getText()),
                 tfTitle.getText(),
                 tfAuthor.getText(),
                 Integer.parseInt(tfYear.getText()),
@@ -88,11 +89,26 @@ public class mainController {
 
         bookList.add(book);
         repository.insert(book);
-        // clearFields();
-        /* for (Book bookRead : bookList) {
-            System.out.println(bookRead.getTitle() + ", " + bookRead.getAuthor() + ", " + bookRead.getYear() + ", "
-                    + bookRead.getPages() + ", " + bookRead.getId());
-        } */
+        clearFields();
+    }
+
+    private void clearFields() {
+        tfId.clear();
+        tfTitle.clear();
+        tfAuthor.clear();
+        tfYear.clear();
+        tfPages.clear();
+    }
+
+    private void loadBooks() {
+        try {
+            bookList.clear();
+            bookList.addAll(repository.getBooks());
+            tbBooks.setItems(bookList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
