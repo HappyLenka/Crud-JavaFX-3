@@ -1,0 +1,6 @@
+com\emma\repository\DBConnection.class
+com\emma\App.class
+com\emma\controllers\LoginController.class
+com\emma\controllers\mainController.class
+com\emma\models\Book.class
+com\emma\repository\bookRepository.class
