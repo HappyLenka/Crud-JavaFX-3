@@ -29,9 +29,6 @@ public class LoginController {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-        
-        
-
         String user = usernameField.getText();
         String pass = passwordField.getText();
 

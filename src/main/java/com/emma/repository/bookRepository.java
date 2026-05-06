@@ -10,45 +10,61 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class bookRepository {
-    
-public ObservableList<Book> getBooks() throws Exception {
 
-    ObservableList<Book> lista = FXCollections.observableArrayList();
+    public ObservableList<Book> getBooks() throws Exception {
 
-    Connection conn = DBConnection.getConnection();
+        ObservableList<Book> lista = FXCollections.observableArrayList();
 
-    String sql = "SELECT * FROM books";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ResultSet rs = ps.executeQuery();
+        Connection conn = DBConnection.getConnection();
 
-    while (rs.next()) {
+        String sql = "SELECT * FROM books";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
 
-        Book b = new Book(
-                rs.getInt("id"),
-                rs.getString("title"),
-                rs.getString("author"),
-                rs.getInt("year"),
-                rs.getInt("pages")
-        );
+        while (rs.next()) {
 
-        lista.add(b);
+            Book b = new Book(
+                    rs.getInt("id"),
+                    rs.getString("title"),
+                    rs.getString("author"),
+                    rs.getInt("year"),
+                    rs.getInt("pages"));
+
+            lista.add(b);
+        }
+
+        return lista;
     }
 
-    return lista;
-}
+    public void insert(Book b) throws Exception {
+        Connection conn = DBConnection.getConnection();
+        String sql = "INSERT INTO books (title, author, year, pages) VALUES ( ?, ?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
 
-public void insert(Book b) throws Exception {
-    Connection conn = DBConnection.getConnection();
-    String sql = "INSERT INTO books (title, author, year, pages) VALUES ( ?, ?, ?, ?)";
-    PreparedStatement ps = conn.prepareStatement(sql);
+        // ps.setInt(1, b.getId());
+        ps.setString(1, b.getTitle());
+        ps.setString(2, b.getAuthor());
+        ps.setInt(3, b.getYear());
+        ps.setInt(4, b.getPages());
 
-    //ps.setInt(1, b.getId());
-    ps.setString(1, b.getTitle());
-    ps.setString(2, b.getAuthor());
-    ps.setInt(3, b.getYear());
-    ps.setInt(4, b.getPages());
+        ps.executeUpdate();
+    }
 
-    ps.executeUpdate();
-}
+    public void update(Book b) throws Exception {
+        Connection conn = DBConnection.getConnection();
+
+        String sql = "UPDATE books SET title = ?, author = ?, year = ?, pages = ? WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setString(1, b.getTitle());
+        ps.setString(2, b.getAuthor());
+        ps.setInt(3, b.getYear());
+        ps.setInt(4, b.getPages());
+        ps.setInt(5, b.getId());
+
+        int rowsAffected = ps.executeUpdate();
+
+        System.out.println("Filas actualizadas: " + rowsAffected);
+    }
 
 }
