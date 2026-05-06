@@ -9,7 +9,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 import com.emma.models.Book;
 import com.emma.repository.bookRepository;
@@ -72,6 +71,7 @@ public class mainController {
 
         } else if (source.toString().contains("Eliminar")) {
             deleteBook();
+            loadBooks();
         }
     }
 
@@ -147,6 +147,13 @@ public class mainController {
             e.printStackTrace();
         }
     }
+
+    private void deleteBook() throws Exception {
+        int id = Integer.parseInt(tfId.getText());
+        repository.delete(id);
+        clearFields();
+    }
+
 
     private boolean validate() {
         if (tfTitle.getText().trim().isEmpty() ||

@@ -67,4 +67,16 @@ public class bookRepository {
         System.out.println("Filas actualizadas: " + rowsAffected);
     }
 
+    public void delete(int id) throws Exception {
+        Connection conn = DBConnection.getConnection();
+
+        String sql = "DELETE FROM books WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, id);
+
+        int rowsAffected = ps.executeUpdate();
+
+        System.out.println("Filas eliminadas: " + rowsAffected);
+    }
 }
