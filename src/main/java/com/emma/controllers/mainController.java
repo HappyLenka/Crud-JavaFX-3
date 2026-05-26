@@ -4,10 +4,13 @@ package com.emma.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 
 import com.emma.models.Book;
@@ -73,6 +76,29 @@ public class mainController {
             deleteBook();
             loadBooks();
         }
+    }
+
+    @FXML
+    private void abrirVentanita(javafx.event.ActionEvent event) throws Exception {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/views/ventanita.fxml"));
+
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = (Stage) tbBooks.getScene().getWindow();
+
+            stage.setTitle("Yupiiii");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
     }
 
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
@@ -153,7 +179,6 @@ public class mainController {
         repository.delete(id);
         clearFields();
     }
-
 
     private boolean validate() {
         if (tfTitle.getText().trim().isEmpty() ||

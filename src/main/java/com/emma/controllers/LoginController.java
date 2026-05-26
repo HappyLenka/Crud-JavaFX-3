@@ -21,7 +21,7 @@ public class LoginController {
     @FXML
     private Label messageLabel;
 
-    @FXML 
+    @FXML
     private Button buttonLogin;
 
     @FXML
@@ -34,12 +34,11 @@ public class LoginController {
 
         // login fake por ahora
         if ("admin".equals(user) && "1234".equals(pass)) {
-           
+
             try {
-                 
-                 FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/views/main.fxml")
-                );
+
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/views/main.fxml"));
 
                 Scene scene = new Scene(loader.load());
 
@@ -49,20 +48,19 @@ public class LoginController {
                 stage.setScene(scene);
                 stage.show();
 
-
             } catch (Exception e) {
-           
+
                 e.printStackTrace();
             }
 
-         //System.out.println("Login correcto ✅");
+            // System.out.println("Login correcto ✅");
         } else {
             alert.setTitle("Login Fallido");
             alert.setHeaderText(null);
             alert.setContentText("Credenciales inválidas ❌");
             alert.showAndWait();
-            //messageLabel.setText("Credenciales inválidas ❌");
-            //System.out.println("Credenciales inválidas ❌");
+            // messageLabel.setText("Credenciales inválidas ❌");
+            // System.out.println("Credenciales inválidas ❌");
         }
     }
 }
