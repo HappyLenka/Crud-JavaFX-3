@@ -1,7 +1,0 @@
-{
-    "db": {
-        "url": "jdbc:mysql://localhost:3305/testdb?allowPublicKeyRetrieval=true&useSSL=false",
-        "user": "root",
-        "password": "Brownie123"
-    }
-}
